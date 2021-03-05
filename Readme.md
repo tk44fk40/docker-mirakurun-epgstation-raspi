@@ -4,6 +4,7 @@
 
 ## 前提条件
 
+- Raspberry Pi 4
 - Docker, docker-compose の導入が必須
 - ホスト上の pcscd は停止する
 - チューナーのドライバが適切にインストールされていること
@@ -11,10 +12,11 @@
 ## インストール手順
 
 ```sh
-$ git clone https://github.com/l3tnun/docker-mirakurun-epgstation.git
+#$ git clone https://github.com/l3tnun/docker-mirakurun-epgstation.git
+$ git clone https://github.com/CH3COOH/docker-mirakurun-epgstation.git
 $ cd docker-mirakurun-epgstation
-$ cp docker-compose-sample.yml docker-compose.yml
-$ cp epgstation/config/config.sample.yml epgstation/config/config.yml
+#$ cp docker-compose-sample.yml docker-compose.yml
+#$ cp epgstation/config/config.sample.yml epgstation/config/config.yml 
 $ cp epgstation/config/operatorLogConfig.sample.yml epgstation/config/operatorLogConfig.yml
 $ cp epgstation/config/epgUpdaterLogConfig.sample.yml epgstation/config/epgUpdaterLogConfig.yml
 $ cp epgstation/config/serviceLogConfig.sample.yml epgstation/config/serviceLogConfig.yml
