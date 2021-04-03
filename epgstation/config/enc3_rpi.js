@@ -54,10 +54,10 @@ if (isDualMono) {
 
 Array.prototype.push.apply(args, ['-ignore_unknown']);
 
+Array.prototype.push.apply(args, ['-b:v', '3000k']);
+
 // その他設定
 Array.prototype.push.apply(args, ['-c:v', 'h264_omx', output]);
-
-Array.prototype.push.apply(args, ['-b:v', '3000k']);
 
 let str = '';
 for (let i of args) {
