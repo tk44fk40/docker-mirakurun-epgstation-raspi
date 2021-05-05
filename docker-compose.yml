@@ -24,7 +24,7 @@ services:
                 max-size: 10m
 
     mysql:
-        image: yobasystems/alpine-mariadb
+        image: yobasystems/alpine-mariadb:10.4.17-arm32v7
         volumes:
             - mysql-db:/var/lib/mysql
         environment:
