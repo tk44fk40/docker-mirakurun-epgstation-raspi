@@ -59,7 +59,7 @@ services:
             - "8888:8888"
             - "8889:8889"
         #devices:
-        #    - /dev/adapter0:/dev/adapter0
+        #    - /dev/dri:/dev/dri
         #    - /dev/vchiq:/dev/vchiq
         #user: "1000:1000"
         restart: always
