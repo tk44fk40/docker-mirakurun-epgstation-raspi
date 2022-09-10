@@ -13,7 +13,6 @@ RUN apt-get update && \
     apt-get -y install libasound2 libass9 libvdpau1 libva-x11-2 libva-drm2 libxcb-shm0 libxcb-xfixes0 libxcb-shape0 libvorbisenc2 libtheora0 && \
 \
 #ffmpeg build
-\
     mkdir /tmp/ffmpeg_sources && \
     cd /tmp/ffmpeg_sources && \
     wget http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.bz2 -O ffmpeg.tar.bz2 && \
@@ -39,14 +38,12 @@ RUN apt-get update && \
       --disable-debug \
       --disable-doc \
     && \
-    cd /tmp/ffmpeg_sources/ffmpeg* && \
     make -j$(nproc) && \
     make install && \
 \
 # 不要なパッケージを削除
-\
     apt-get -y remove $DEV && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/ffmpeg_sources
+    rm -rf /tmp/*
