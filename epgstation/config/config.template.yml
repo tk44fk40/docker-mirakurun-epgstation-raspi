@@ -20,7 +20,7 @@ epgUpdateIntervalTime: 10
 conflictPriority: 1
 recPriority: 2
 
-recordedFormat: '%YEAR%年%MONTH%月%DAY%日%HOUR%時%MIN%分%SEC%秒-%TITLE%'
+recordedFormat: '%YEAR%%MONTH%%DAY%-%TITLE%'
 recordedFileExtension: .m2ts
 recorded:
     - name: recorded
@@ -36,6 +36,10 @@ ffprobe: /usr/local/bin/ffprobe
 encodeProcessNum: 4
 concurrentEncodeNum: 1
 encode:
+    - name: h264_omx
+      cmd: '%NODE% %ROOT%/config/enc_rpi.js'
+      suffix: .mp4
+      rate: 4.0
     - name: H.264
       cmd: '%NODE% %ROOT%/config/enc.js'
       suffix: .mp4
@@ -178,6 +182,18 @@ stream:
                       -f webm pipe:1'
 
             mp4:
+                - name: 720p (h264_omx)
+                  cmd:
+                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac
+                      2 -c:v h264_omx -vf scale=-2:720 -b:v 3000k -profile:v baseline -preset veryfast -tune
+                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
+                      pipe:1'
+                - name: 480p (h264_omx)
+                  cmd:
+                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac
+                      2 -c:v h264_omx -vf scale=-2:480 -b:v 1500k -profile:v baseline -preset veryfast -tune
+                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
+                      pipe:1'
                 - name: 720p
                   cmd:
                       '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac
