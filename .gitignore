@@ -19,3 +19,4 @@
 /epgstation/data/*.json
 /docker-compose.yml
 !.gitkeep
+!Dockerfile
