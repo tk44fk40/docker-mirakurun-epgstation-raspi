@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git clone https://github.com/tk44fk40/docker-mirakurun-epgstation-raspi.git
+git clone -b merge-l3tnun https://github.com/tk44fk40/docker-mirakurun-epgstation-raspi.git
 cd docker-mirakurun-epgstation-raspi
 cp docker-compose-sample.yml docker-compose.yml
 cp epgstation/config/enc.template.js epgstation/config/enc.js
