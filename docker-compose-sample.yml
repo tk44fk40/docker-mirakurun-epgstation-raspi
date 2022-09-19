@@ -24,7 +24,8 @@ services:
                 max-size: 10m
 
     mysql:
-        image: yobasystems/alpine-mariadb:10.4.17-arm32v7
+    #   image: yobasystems/alpine-mariadb:10.4.17-arm32v7
+        image: yobasystems/alpine-mariadb:10.4.17-aarch64
         volumes:
             - mysql-db:/var/lib/mysql
         environment:
@@ -58,10 +59,10 @@ services:
         ports:
             - "8888:8888"
             - "8889:8889"
-        #devices:
+        devices:
         #    - /dev/dri:/dev/dri
-        #    - /dev/vchiq:/dev/vchiq
-        #user: "1000:1000"
+            - /dev/vchiq:/dev/vchiq
+        user: "1000:1000"
         restart: always
 
 volumes:
