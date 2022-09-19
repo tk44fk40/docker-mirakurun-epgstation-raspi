@@ -58,19 +58,10 @@ Array.prototype.push.apply(args, ['-c:a', 'aac']);
 Array.prototype.push.apply(args, ['-map', '0:s?', '-c:s', 'mov_text']);
 // 品質設定
 Array.prototype.push.apply(args, ['-preset', 'veryfast', '-crf', '26']);
-// 解析時間・サイズ指定
-Array.prototype.push.apply(args, ['-analyzeduration', '10M', '-probesize', '32M']);
 // 出力ファイル
 Array.prototype.push.apply(args, [output]);
 
 (async () => {
-    // オプションをコンソールに表示
-    let str = '';
-    for (let i of args) {
-        str += ` ${ i }`
-    }
-    console.error(str);
-
     // 進捗計算のために動画の長さを取得
     const duration = await getDuration(input);
 
