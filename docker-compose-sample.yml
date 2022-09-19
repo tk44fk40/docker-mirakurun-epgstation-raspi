@@ -24,7 +24,6 @@ services:
                 max-size: 10m
 
     mysql:
-    #   image: yobasystems/alpine-mariadb:10.4.17-arm32v7
         image: yobasystems/alpine-mariadb:10.4.17-aarch64
         volumes:
             - mysql-db:/var/lib/mysql
@@ -64,6 +63,22 @@ services:
             - /dev/vchiq:/dev/vchiq
         user: "1000:1000"
         restart: always
+
+    netdata:
+        image: netdata/netdata
+        cap_add:
+            - SYS_PTRACE
+        ports:
+            - "19999:19999"
+        volumes:
+            - /proc:/host/proc:ro
+            - /sys:/host/sys:ro
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+        security_opt:
+            - apparmor:unconfined
+        environment:
+            TZ: "Asia/Tokyo"
+        restart: always        
 
 volumes:
     mysql-db:
