@@ -60,6 +60,9 @@ services:
             - "8889:8889"
         devices:
         #    - /dev/dri:/dev/dri
+            - /dev/video10:/dev/video10
+            - /dev/video11:/dev/video11
+            - /dev/video12:/dev/video12
             - /dev/vchiq:/dev/vchiq
         user: "1000:1000"
         restart: always
