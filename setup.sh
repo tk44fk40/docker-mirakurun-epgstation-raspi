@@ -11,4 +11,4 @@ cp epgstation/config/epgUpdaterLogConfig.sample.yml epgstation/config/epgUpdater
 cp epgstation/config/serviceLogConfig.sample.yml epgstation/config/serviceLogConfig.yml
 ln keep_wifi_alive/keep_wifi_alive.sh ~/keep_wifi_alive.sh
 keep_wifi_alive/add_keep_wifi_alive_to_crontab.sh
-sudo docker-compose run --rm -e SETUP=true mirakurun
+docker-compose run --rm -e SETUP=true mirakurun
