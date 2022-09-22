@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3'
 services:
     mirakurun:
         image: chinachu/mirakurun
@@ -64,7 +64,7 @@ services:
             - /dev/video11:/dev/video11
             - /dev/video12:/dev/video12
             - /dev/vchiq:/dev/vchiq
-        user: "1000:1000"
+        #user: "1000:44"
         restart: always
 
     netdata:
