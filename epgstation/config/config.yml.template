@@ -67,11 +67,11 @@ stream:
                 - name: 720p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=-2:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mpegts pipe:1'
+                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mpegts pipe:1'
                 - name: 480p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=-2:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mpegts pipe:1'
+                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mpegts pipe:1'
                 - name: 無変換
 
             m2tsll:
@@ -104,15 +104,15 @@ stream:
                 - name: 1080p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=-1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
+                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
                 - name: 720p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=-2:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
+                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
                 - name: 480p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=-2:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
+                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
 
             hls:
                 - name: 720p
@@ -146,16 +146,16 @@ stream:
             mp4:
                 - name: 1080p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2 -c:v
-                      h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
                 - name: 720p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2 -c:v
-                      h264_v4l2m2m -vf scale=-2:720 -aspect 16:9 -b:v 3000k -profile:v 0 z -y -f mp4 pipe:1'
+                      '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
                 - name: 480p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2 -c:v
-                      h264_v4l2m2m -vf scale=-2:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
 
             hls:
                 - name: 720p
@@ -181,7 +181,7 @@ stream:
                       192k -ac 2 -c:v libvpx-vp9 -vf scale=-2:720 -b:v 3000k -deadline realtime -speed 4 -cpu-used -8 -y
                       -f webm pipe:1'
                 - name: 480p
-                  cmd:
+                  cmd:854:480
                       '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 3 -c:a libvorbis -ar 48000 -b:a
                       128k -ac 2 -c:v libvpx-vp9 -vf scale=-2:480 -b:v 1500k -deadline realtime -speed 4 -cpu-used -8 -y
                       -f webm pipe:1'
@@ -189,16 +189,16 @@ stream:
             mp4:
                 - name: 1080 (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac
-                      2 -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
                 - name: 720p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac
-                      2 -c:v h264_v4l2m2m -vf scale=-2:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
                 - name: 480p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac
-                      2 -c:v h264_v4l2m2m -vf scale=-2:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
 
             hls:
                 - name: 720p
