@@ -41,7 +41,7 @@ Array.prototype.push.apply(args, ['-map', '0:v', '-c:v', 'h264_v4l2m2m', '-aspec
 // インターレス解除
 //Array.prototype.push.apply(args, ['-vf', 'yadif']);
 // スケーリング
-Array.prototype.push.apply(args, ['-vf', 'scale=-2:720']);
+Array.prototype.push.apply(args, ['-vf', 'scale=1280:720']);
 // オーディオストリーム設定
 if (isDualMono) {
     Array.prototype.push.apply(args, [
