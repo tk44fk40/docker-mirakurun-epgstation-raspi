@@ -33,13 +33,15 @@ const getDuration = filePath => {
 };
 
 // 字幕用
-Array.prototype.push.apply(args, ['-fix_sub_duration']);
+//Array.prototype.push.apply(args, ['-fix_sub_duration']);
 // input 設定
 Array.prototype.push.apply(args, ['-i', input]);
 // ビデオストリーム設定
 Array.prototype.push.apply(args, ['-map', '0:v', '-c:v', 'h264_v4l2m2m', '-aspect', '16:9']);
-// インターレス解除・ビデオフィルタ
-Array.prototype.push.apply(args, ['-vf', 'scale=1920:1080']); // スケールだけ修正
+// インターレス解除
+//Array.prototype.push.apply(args, ['-vf', 'yadif']);
+// スケーリング
+Array.prototype.push.apply(args, ['-vf', 'scale=-2:720']);
 // オーディオストリーム設定
 if (isDualMono) {
     Array.prototype.push.apply(args, [
@@ -57,7 +59,7 @@ Array.prototype.push.apply(args, ['-c:a', 'aac']);
 // 字幕ストリーム設定
 Array.prototype.push.apply(args, ['-map', '0:s?', '-c:s', 'mov_text']);
 // 品質設定
-Array.prototype.push.apply(args, ['-profile:v', '2', '-b:v', '3000k']);
+Array.prototype.push.apply(args, ['-profile:v', '0', '-b:v', '3000k']);
 // 出力ファイル
 Array.prototype.push.apply(args, [output]);
 
