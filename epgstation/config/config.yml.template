@@ -21,7 +21,7 @@ epgUpdateIntervalTime: 10
 conflictPriority: 1
 recPriority: 2
 
-recordedFormat: '%YEAR%%MONTH%%DAY%-%TITLE%'
+recordedFormat: '%YEAR%年%MONTH%月%DAY%日%HOUR%時%MIN%分%SEC%秒-%TITLE%'
 recordedFileExtension: .m2ts
 recorded:
     - name: recorded
@@ -63,11 +63,15 @@ stream:
                 - name: 1080p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=1920:1080 -b:v 3000k -profile:v 0 -y -f mpegts pipe:1'
+                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mpegts pipe:1'
                 - name: 720p (h264_v4l2m2m)
                   cmd:
+                      '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=-2:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mpegts pipe:1'
+                - name: 480p (h264_v4l2m2m)
+                  cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=1280:720 -b:v 3000k -profile:v 0 -y -f mpegts pipe:1'
+                      -c:v h264_v4l2m2m -vf scale=-2:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mpegts pipe:1'
                 - name: 無変換
 
             m2tsll:
@@ -100,21 +104,15 @@ stream:
                 - name: 1080p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=-2:1080 -b:v 3000k -profile:v 0 -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
+                      -c:v h264_v4l2m2m -vf scale=-1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
                 - name: 720p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=-2:720 -b:v 3000k -profile:v 0 -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
+                      -c:v h264_v4l2m2m -vf scale=-2:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
                 - name: 480p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=-2:480 -b:v 1500k -profile:v 0 -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
+                      -c:v h264_v4l2m2m -vf scale=-2:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
 
             hls:
                 - name: 720p
@@ -149,33 +147,15 @@ stream:
                 - name: 1080p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2 -c:v
-                      h264_v4l2m2m -vf scale=-2:1080 -b:v 3000k -profile:v 0 -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
+                      h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
                 - name: 720p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2 -c:v
-                      h264_v4l2m2m -vf scale=-2:720 -b:v 3000k -profile:v 0 -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
+                      h264_v4l2m2m -vf scale=-2:720 -aspect 16:9 -b:v 3000k -profile:v 0 z -y -f mp4 pipe:1'
                 - name: 480p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2 -c:v
-                      h264_v4l2m2m -vf scale=-2:480 -b:v 1500k -profile:v 0 -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
-                - name: 720p
-                  cmd:
-                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac
-                      2 -c:v libx264 -vf scale=-2:720 -b:v 3000k -profile:v baseline -preset veryfast -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
-                - name: 480p
-                  cmd:
-                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac
-                      2 -c:v libx264 -vf scale=-2:480 -b:v 1500k -profile:v baseline -preset veryfast -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
+                      h264_v4l2m2m -vf scale=-2:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
 
             hls:
                 - name: 720p
@@ -210,33 +190,15 @@ stream:
                 - name: 1080 (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac
-                      2 -c:v h264_v4l2m2m -vf scale=-2:720 -b:v 3000k -profile:v 0 -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
+                      2 -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
                 - name: 720p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac
-                      2 -c:v h264_v4l2m2m -vf scale=-2:720 -b:v 3000k -profile:v 0 -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
+                      2 -c:v h264_v4l2m2m -vf scale=-2:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
                 - name: 480p (h264_v4l2m2m)
                   cmd:
                       '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac
-                      2 -c:v h264_v4l2m2m -vf scale=-2:480 -b:v 1500k -profile:v 0 -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
-                - name: 720p
-                  cmd:
-                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac
-                      2 -c:v libx264 -vf scale=-2:720 -b:v 3000k -profile:v baseline -preset veryfast -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
-                - name: 480p
-                  cmd:
-                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac
-                      2 -c:v libx264 -vf scale=-2:480 -b:v 1500k -profile:v baseline -preset veryfast -tune
-                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
-                      pipe:1'
+                      2 -c:v h264_v4l2m2m -vf scale=-2:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
 
             hls:
                 - name: 720p
