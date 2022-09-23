@@ -37,7 +37,7 @@ const getDuration = filePath => {
 // input 設定
 Array.prototype.push.apply(args, ['-i', input]);
 // ビデオストリーム設定
-Array.prototype.push.apply(args, ['-map', '0:v', '-c:v', 'h264_v4l2m2m', '-aspect', '16:9']);
+Array.prototype.push.apply(args, ['-map', '0:v', '-c:v', 'h264_v4l2m2m', '-aspect', '16:9', '-r',  '24000/1001']);
 // インターレス解除
 //Array.prototype.push.apply(args, ['-vf', 'yadif']);
 // スケーリング
@@ -57,7 +57,7 @@ if (isDualMono) {
 }
 Array.prototype.push.apply(args, ['-c:a', 'aac']);
 // 字幕ストリーム設定
-Array.prototype.push.apply(args, ['-map', '0:s?', '-c:s', 'mov_text']);
+Array.prototype.push.apply(args, ['-sn']);
 // 品質設定
 Array.prototype.push.apply(args, ['-profile:v', '0', '-b:v', '3000k']);
 // 出力ファイル
