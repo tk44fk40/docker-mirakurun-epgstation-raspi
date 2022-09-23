@@ -1,0 +1,122 @@
+port: 8888
+mirakurunPath: http://mirakurun:40772/
+
+dbtype: sqlite
+# sqlite:
+#   extensions:
+#     - '/hoge/regexp.dylib'
+#   regexp: true
+
+# dbtype: mysql
+# mysql:
+#     host: mysql
+#     port: 3306
+#     user: epgstation
+#     password: epgstation
+#     database: epgstation
+#     charset: utf8mb4
+
+needToReplaceEnclosingCharacters: true
+
+epgUpdateIntervalTime: 10
+
+conflictPriority: 1
+recPriority: 2
+
+recordedFormat: '%YEAR%年%MONTH%月%DAY%日%HOUR%時%MIN%分%SEC%秒-%TITLE%'
+recordedFileExtension: .m2ts
+recorded:
+    - name: recorded
+      path: '%ROOT%/recorded'
+
+thumbnail: '%ROOT%/thumbnail'
+thumbnailSize: 480x270
+thumbnailPosition: 5
+
+ffmpeg: /usr/local/bin/ffmpeg
+ffprobe: /usr/local/bin/ffprobe
+
+encodeProcessNum: 4
+concurrentEncodeNum: 1
+encode:
+    - name: h264_v4l2m2m
+      cmd: '%NODE% %ROOT%/config/enc_rpi.js'
+      suffix: .mp4
+      rate: 4.0
+    - name: H.264
+      cmd: '%NODE% %ROOT%/config/enc.js'
+      suffix: .mp4
+      rate: 4.0
+
+urlscheme:
+    m2ts:
+        ios: vlc-x-callback://x-callback-url/stream?url=PROTOCOL://ADDRESS
+        android: intent://ADDRESS#Intent;package=org.videolan.vlc;type=video;scheme=PROTOCOL;end
+    video:
+        ios: infuse://x-callback-url/play?url=PROTOCOL://ADDRESS
+        android: intent://ADDRESS#Intent;package=com.mxtech.videoplayer.ad;type=video;scheme=PROTOCOL;end
+    download:
+        ios: vlc-x-callback://x-callback-url/download?url=PROTOCOL://ADDRESS&filename=FILENAME
+
+stream:
+    live:
+        ts:
+            m2ts:
+                - name: 1080p (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -re -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -f mpegts pipe:1'
+                - name: 720p (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -re -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -f mpegts pipe:1'
+                - name: 480p (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -re -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -f mpegts pipe:1'
+                - name: 無変換
+
+            mp4:
+                - name: 1080p (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -re -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
+                - name: 720p (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -re -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
+                - name: 480p (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -re -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -f mp4 pipe:1'
+
+    recorded:
+        ts:
+            mp4:
+                - name: 1080p (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
+                - name: 720p (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
+                - name: 480p (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -f mp4 pipe:1'
+
+        encoded:
+            mp4:
+                - name: 1080 (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -y -ignore_unknown -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
+                - name: 720p (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -y -ignore_unknown -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
+                - name: 480p (h264_v4l2m2m)
+                  cmd:
+                      '%FFMPEG% -y -ignore_unknown -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -f mp4 pipe:1'
