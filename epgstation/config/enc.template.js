@@ -6,7 +6,7 @@ const ffprobe = process.env.FFPROBE;
 const input = process.env.INPUT;
 const output = process.env.OUTPUT;
 const isDualMono = parseInt(process.env.AUDIOCOMPONENTTYPE, 10) == 2;
-const args = ['-y'];
+const args = ['-y', '-ignore_unknown'];
 
 /**
  * 動画長取得関数
