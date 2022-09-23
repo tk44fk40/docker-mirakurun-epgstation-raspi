@@ -62,18 +62,14 @@ stream:
     live:
         ts:
             m2ts:
-                - name: 1080p (h264_v4l2m2m)
+                - name: 720p
                   cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mpegts pipe:1'
-                - name: 720p (h264_v4l2m2m)
-                  cmd:
-                      '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mpegts pipe:1'
-                - name: 480p (h264_v4l2m2m)
+                      -c:v libx264 -vf yadif,scale=-2:720 -b:v 3000k -preset veryfast -y -f mpegts pipe:1'
+                - name: 480p
                   cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mpegts pipe:1'
+                      -c:v libx264 -vf yadif,scale=-2:480 -b:v 1500k -preset veryfast -y -f mpegts pipe:1'
                 - name: 無変換
 
             m2tsll:
@@ -105,16 +101,28 @@ stream:
             mp4:
                 - name: 1080p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -re -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
                 - name: 720p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -re -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
                 - name: 480p (h264_v4l2m2m)
                   cmd:
+                      '%FFMPEG% -re -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -f mp4 pipe:1'
+                - name: 720p
+                  cmd:
+                      '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v libx264 -vf yadif,scale=-2:720 -b:v 3000k -profile:v baseline -preset veryfast -tune
+                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
+                      pipe:1'
+                - name: 480p
+                  cmd:
                       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
+                      -c:v libx264 -vf yadif,scale=-2:480 -b:v 1500k -profile:v baseline -preset veryfast -tune
+                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
+                      pipe:1'
 
             hls:
                 - name: 720p
@@ -131,6 +139,15 @@ stream:
                       -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments -c:a
                       aac -ar 48000 -b:a 128k -ac 2 -c:v libx264 -vf yadif,scale=-2:480 -b:v 1500k -preset veryfast
                       -flags +loop-global_header %OUTPUT%'
+                # - name: 720p (arib)
+                #   cmd:
+                #       '%FFMPEG% -re -dual_mono_mode main -fix_sub_duration -i pipe:0 -threads 0 -ignore_unknown
+                #       -max_muxing_queue_size 1024 -f hls -hls_time 3 -hls_list_size 17 -hls_allow_cache 1
+                #       -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments -c:a
+                #       aac -ar 48000 -b:a 192k -ac 2 -c:v libx264 -vf yadif,scale=-2:720 -b:v 3000k -preset veryfast
+                #       -flags +loop-global_header -c:s webvtt -master_pl_name stream%streamNum%.m3u8
+                #       %streamFileDir%/stream%streamNum%-child.m3u8'
+
     recorded:
         ts:
             webm:
@@ -148,16 +165,28 @@ stream:
             mp4:
                 - name: 1080p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
                 - name: 720p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
                 - name: 480p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -y -ignore_unknown -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -f mp4 pipe:1'
+                - name: 720p
+                  cmd:
+                      '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2 -c:v
+                      libx264 -vf yadif,scale=-2:720 -b:v 3000k -profile:v baseline -preset veryfast -tune
+                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
+                      pipe:1'
+                - name: 480p
+                  cmd:
+                      '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2 -c:v
+                      libx264 -vf yadif,scale=-2:480 -b:v 1500k -profile:v baseline -preset veryfast -tune
+                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
+                      pipe:1'
 
             hls:
                 - name: 720p
@@ -174,6 +203,14 @@ stream:
                       -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments -c:a
                       aac -ar 48000 -b:a 128k -ac 2 -c:v libx264 -vf yadif,scale=-2:480 -b:v 1500k -preset veryfast
                       -flags +loop-global_header %OUTPUT%'
+                # - name: 720p (arib)
+                #   cmd:
+                #       '%FFMPEG% -dual_mono_mode main -fix_sub_duration -i pipe:0 -threads 0 -ignore_unknown
+                #       -max_muxing_queue_size 1024 -f hls -hls_time 3 -hls_list_size 0 -hls_allow_cache 1
+                #       -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments -c:a
+                #       aac -ar 48000 -b:a 192k -ac 2 -c:v libx264 -vf yadif,scale=-2:720 -b:v 3000k -preset veryfast
+                #       -flags +loop-global_header -c:s webvtt -master_pl_name stream%streamNum%.m3u8
+                #       %streamFileDir%/stream%streamNum%-child.m3u8'
 
         encoded:
             webm:
@@ -191,16 +228,28 @@ stream:
             mp4:
                 - name: 1080 (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -y -ignore_unknown -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
                 - name: 720p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -y -ignore_unknown -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9 -b:v 3000k -profile:v 0 -f mp4 pipe:1'
                 - name: 480p (h264_v4l2m2m)
                   cmd:
-                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
-                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -y -f mp4 pipe:1'
+                      '%FFMPEG% -y -ignore_unknown -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
+                      -c:v h264_v4l2m2m -vf scale=854:480 -aspect 16:9 -b:v 1500k -profile:v 0 -f mp4 pipe:1'
+                - name: 720p
+                  cmd:
+                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac
+                      2 -c:v libx264 -vf scale=-2:720 -b:v 3000k -profile:v baseline -preset veryfast -tune
+                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
+                      pipe:1'
+                - name: 480p
+                  cmd:
+                      '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac
+                      2 -c:v libx264 -vf scale=-2:480 -b:v 1500k -profile:v baseline -preset veryfast -tune
+                      fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
+                      pipe:1'
 
             hls:
                 - name: 720p
