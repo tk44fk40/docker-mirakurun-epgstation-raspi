@@ -6,7 +6,7 @@ const ffprobe = process.env.FFPROBE;
 const input = process.env.INPUT;
 const output = process.env.OUTPUT;
 const isDualMono = parseInt(process.env.AUDIOCOMPONENTTYPE, 10) == 2;
-const args = ['-y'];
+const args = ['-y', '-ignore_unknown'];
 
 /**
  * 動画長取得関数
@@ -37,29 +37,19 @@ const getDuration = filePath => {
 // input 設定
 Array.prototype.push.apply(args, ['-i', input]);
 // ビデオストリーム設定
-Array.prototype.push.apply(args, ['-map', '0:v', '-c:v', 'h264_v4l2m2m', '-aspect', '16:9', '-r',  '24000/1001']);
+Array.prototype.push.apply(args, ['-map', '0:v']);
+Array.prototype.push.apply(args, ['-c:v', 'h264_v4l2m2m']);
+Array.prototype.push.apply(args, ['-aspect', '16:9', '-r',  '24000/1001']);
+Array.prototype.push.apply(args, ['-profile:v', '0', '-b:v', '3000k']);
 // インターレス解除
 //Array.prototype.push.apply(args, ['-vf', 'yadif']);
 // スケーリング
 Array.prototype.push.apply(args, ['-vf', 'scale=1280:720']);
 // オーディオストリーム設定
-if (isDualMono) {
-    Array.prototype.push.apply(args, [
-        '-filter_complex',
-        'channelsplit[FL][FR]',
-        '-map', '[FL]',
-        '-map', '[FR]',
-        '-metadata:s:a:0', 'language=jpn',
-        '-metadata:s:a:1', 'language=eng',
-    ]);
-} else {
-    Array.prototype.push.apply(args, ['-map', '0:a']);
-}
+Array.prototype.push.apply(args, ['-map', '0:a']);
 Array.prototype.push.apply(args, ['-c:a', 'aac']);
-// 字幕ストリーム設定
+// 字幕ストリーム設定(無効)
 Array.prototype.push.apply(args, ['-sn']);
-// 品質設定
-Array.prototype.push.apply(args, ['-profile:v', '0', '-b:v', '3000k']);
 // 出力ファイル
 Array.prototype.push.apply(args, [output]);
 
