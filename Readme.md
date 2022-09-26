@@ -25,7 +25,7 @@
     - <code>H264_omx</code> は Debian bullseye 以降は未対応
     - 現行の Raspberry Pi OS は bullseye
     - Ubuntu 20.04 は bullseye
-    - Ubuntu 22.04 は更に新しい jammy
+    - Ubuntu 22.04 は更に新しい bookworm
     - <code>H264_omx</code> を使いたい場合は、Raspberry Pi OS (Legacy) 32-bit を選択する必要がある
       - <code>H264_omx</code> と <code>H264_v4l2m2m</code> の両方でエンコードして比較したが、<code>H264_v4l2m2m</code> の方が若干速かったので敢えて <code>H264_omx</code> を選択する必要性は感じなかった
     - 本コンテナの設定は Raspberry Pi OS (Legacy) 32-bit には適合しないので注意
