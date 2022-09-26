@@ -23,22 +23,22 @@ services:
                 max-file: "1"
                 max-size: 10m
 
-    # mysql:
-    #     image: yobasystems/alpine-mariadb:10.4.17-aarch64
-    #     volumes:
-    #         - mysql-db:/var/lib/mysql
-    #     environment:
-    #         MYSQL_USER: epgstation
-    #         MYSQL_PASSWORD: epgstation
-    #         MYSQL_ROOT_PASSWORD: epgstation
-    #         MYSQL_DATABASE: epgstation
-    #         TZ: "Asia/Tokyo"
-    #     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --performance-schema=false --expire_logs_days=1
-    #     restart: always
-    #     logging:
-    #         options:
-    #             max-size: "10m"
-    #             max-file: "3"
+    mysql:
+        image: yobasystems/alpine-mariadb:10.4.17-aarch64
+        volumes:
+            - mysql-db:/var/lib/mysql
+        environment:
+            MYSQL_USER: epgstation
+            MYSQL_PASSWORD: epgstation
+            MYSQL_ROOT_PASSWORD: epgstation
+            MYSQL_DATABASE: epgstation
+            TZ: "Asia/Tokyo"
+        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --performance-schema=false --expire_logs_days=1
+        restart: always
+        logging:
+            options:
+                max-size: "10m"
+                max-file: "3"
 
     epgstation:
         build: epgstation
@@ -54,7 +54,7 @@ services:
             TZ: "Asia/Tokyo"
         depends_on:
             - mirakurun
-            # - mysql
+             - mysql
         ports:
             - "8888:8888"
             - "8889:8889"
@@ -67,23 +67,22 @@ services:
         user: "1000:44"
         restart: always
 
-#     netdata:
-#         image: netdata/netdata
-#         cap_add:
-#             - SYS_PTRACE
-#         ports:
-#             - "19999:19999"
-#         volumes:
-#             - /proc:/host/proc:ro
-#             - /sys:/host/sys:ro
-#             - /var/run/docker.sock:/var/run/docker.sock:ro
-#         security_opt:
-#             - apparmor:unconfined
-#         environment:
-#             TZ: "Asia/Tokyo"
-#         restart: always        
+    netdata:
+        image: netdata/netdata
+        cap_add:
+            - SYS_PTRACE
+        ports:
+            - "19999:19999"
+        volumes:
+            - /proc:/host/proc:ro
+            - /sys:/host/sys:ro
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+        security_opt:
+            - apparmor:unconfined
+        environment:
+            TZ: "Asia/Tokyo"
+        restart: always
 
-# volumes:
-#     mysql-db:
-#         driver: local
-
+volumes:
+    mysql-db:
+        driver: local
