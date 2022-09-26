@@ -9,6 +9,6 @@ cp epgstation/config/config.yml.template.h264_v4l2m2m epgstation/config/config.y
 cp epgstation/config/operatorLogConfig.sample.yml epgstation/config/operatorLogConfig.yml
 cp epgstation/config/epgUpdaterLogConfig.sample.yml epgstation/config/epgUpdaterLogConfig.yml
 cp epgstation/config/serviceLogConfig.sample.yml epgstation/config/serviceLogConfig.yml
-ln keep_wifi_alive/keep_wifi_alive.sh ~/keep_wifi_alive.sh
+ln -s keep_wifi_alive/keep_wifi_alive.sh ~/keep_wifi_alive.sh
 keep_wifi_alive/add_keep_wifi_alive_to_crontab.sh
 docker-compose run --rm -e SETUP=true mirakurun
