@@ -1,20 +1,19 @@
 port: 8888
 mirakurunPath: http://mirakurun:40772/
 
-dbtype: sqlite
 # sqlite:
 #   extensions:
 #     - '/hoge/regexp.dylib'
 #   regexp: true
 
-# dbtype: mysql
-# mysql:
-#     host: mysql
-#     port: 3306
-#     user: epgstation
-#     password: epgstation
-#     database: epgstation
-#     charset: utf8mb4
+dbtype: mysql
+mysql:
+    host: mysql
+    port: 3306
+    user: epgstation
+    password: epgstation
+    database: epgstation
+    charset: utf8mb4
 
 needToReplaceEnclosingCharacters: true
 
