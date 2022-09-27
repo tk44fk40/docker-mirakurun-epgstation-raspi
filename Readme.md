@@ -1,12 +1,12 @@
 # docker-mirakurun-epgstation
 
-[Mirakurun](https://github.com/Chinachu/Mirakurun) + [EPGStation](https://github.com/l3tnun/EPGStation) を forkしてして Raspberry Pi 4 Model B (4GB) を想定してカスタマイズした Docker コンテナ
+[Mirakurun](https://github.com/Chinachu/Mirakurun) + [EPGStation](https://github.com/l3tnun/EPGStation) の dcoker 版（[docker-mirakurun-epgstation](https://github.com/l3tnun/docker-mirakurun-epgstation)）を Raspberry Pi 4 Model B (4GB) 用にカスタマイズした docker コンテナ
 
 ## 前提条件
 
 - Raspberry Pi 4 Model B (4GB)
 - Ubuntu 22.04 LTS server 64-bit
-- Docker, docker-compose がインストールされていること
+- docker, docker-compose がインストールされていること
 - ホスト上の pcscd は停止する
 - チューナーのドライバが適切にインストールされていること
 
@@ -38,6 +38,7 @@
   - それでもたまに切れてる気がしないでもないがきっと気のせい
 
 - ビルドする <code>ffmpeg</code> のバージョンは 5.1.1
+- チャンネル順（東京）の設定
 
 ## インストール手順
 
