@@ -170,17 +170,20 @@ keep_wifi_alive/add_keep_wifi_alive_to_crontab.sh
 
 ## Windows のカスタム URL scheme について
 
-- 放映中番組の視聴で「外部アプリで開く」を選択し、TS の「無変換」を再生するような場合、カスタム URL scheme 未設定だと *.m3u8 ファイルがダウンロードされる
+- 放映中番組の視聴で「外部アプリで開く」を選択し、TS の「無変換」を再生するよ場合、もしくは録画済み番組の「PLAY」ボタンか再生する場合、カスタム URL scheme 未設定だと *.m3u8 ファイルがダウンロードされる
 - ダウンロードされた *.m3u8 を動画プレイヤー（VLC や Media Player Classic など）で開けば当然再生（視聴）できる
-- *.m3u8 をダウンロードせず、直接動画プレイヤーで再生（視聴）したい場合、カスタム URL scheme を使う
+- *.m3u8 をダウンロードせず、直接動画プレイヤーで再生（視聴）したい場合、カスタム URL scheme を設定する
 - config.yml.template.h264_v4l2m2m からコピーされる config.yml では、カスタム URL scheme <code>mpc.url</code> を設定してある
-
   ```
   win: mpc.url://PROTOCOL://ADDRESS
   ```
-
-- Windows 側で URL スキームとして <code>mpc.url</code> を登録すれば、「外部アプリ」＆「無変換」の視聴時に「再生を許可の確認ポップアップ」が表示され、許可すれば *.m3u8 をダウンロードせずに直接登録した動画プレイヤーで再生（視聴）出来るようになる
-- 以下、Windows 側での URL スキームの登録方法を説明する
+- 本コンテナの EPGStation では、config.yml での URL scheme の設定は実は無効で、Web IU の設定画面による設定内容が反映される
+  - URL 部分 <code>mpc.url://PROTOCOL://ADDRESS</code> を設定画面の「視聴 URL Scheme
+」入力欄に記入し「保存」する
+  - 入力欄が「放映中」グループと「録画」グループの２箇所にあることに注意
+- 併せて、Windows 側でカスタム URL スキームとして <code>mpc.url</code> を登録すれば、*.m3u8 をダウンロードせず再生許可の確認ポップアップが表示されるようになる
+- ポップアップで許可するとカスタム URL スキームで登録した動画プレイヤーにより再生（視聴）出来る
+- 以下、Windows 側でのカスタム URL スキームの登録方法を説明する
 
 ### 1. レジストリに URL スキーム <code>mpc.url</code> を登録する
 
