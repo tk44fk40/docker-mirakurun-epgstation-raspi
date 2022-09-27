@@ -227,3 +227,21 @@ keep_wifi_alive/add_keep_wifi_alive_to_crontab.sh
     ```
 
 - Let's enjoy !!
+
+## Plex PX-S1UD 等のチューナーデバイスのファームウェアについて
+
+ネットの記事で、Ubuntu の標準のドライバで PX-S1UD 等が使用可能
+という内容が散見されるが、以下の手順で、ファームウェアはインストール
+する必要があることに注意
+
+- http://plex-net.co.jp/plex/px-s1ud/PX-S1UD_driver_Ver.1.0.1.zip をダウンロード
+- zip を展開し、PX-S1UD_driver_Ver.1.0.1/x64/amd64/isdbt_rio.inp を取得
+- isdbt_rio.inp を /lib/firmware/isdbt_rio.inp にコピー
+- リブート
+
+```sh
+curl -O http://plex-net.co.jp/plex/px-s1ud/PX-S1UD_driver_Ver.1.0.1.zip
+unzip PX-S1UD_driver_Ver.1.0.1.zip
+sudo cp PX-S1UD_driver_Ver.1.0.1/x64/amd64/isdbt_rio.inp /lib/firmware/
+sudo reboot
+```
