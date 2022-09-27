@@ -77,11 +77,9 @@ urlscheme:
     m2ts:
         ios: vlc-x-callback://x-callback-url/stream?url=PROTOCOL://ADDRESS
         android: intent://ADDRESS#Intent;package=org.videolan.vlc;type=video;scheme=PROTOCOL;end
-        win: mpc.url://PROTOCOL://ADDRESS
     video:
         ios: infuse://x-callback-url/play?url=PROTOCOL://ADDRESS
         android: intent://ADDRESS#Intent;package=com.mxtech.videoplayer.ad;type=video;scheme=PROTOCOL;end
-        win: mpc.url://PROTOCOL://ADDRESS
     download:
         ios: vlc-x-callback://x-callback-url/download?url=PROTOCOL://ADDRESS&filename=FILENAME
 
@@ -89,6 +87,7 @@ stream:
     live:
         ts:
             m2ts:
+                - name: 無変換
                 # - name: 720p
                 #   cmd:
                 #       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac 2
@@ -97,7 +96,6 @@ stream:
                 #   cmd:
                 #       '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -b:a 128k -ac 2
                 #       -c:v libx264 -vf yadif,scale=-2:480 -b:v 1500k -preset veryfast -y -f mpegts pipe:1'
-                - name: 無変換
 
             m2tsll:
                 - name: 1080p
@@ -108,21 +106,21 @@ stream:
                     -fflags nobuffer -flags low_delay
                     -max_delay 250000 -max_interleave_delta 1
                     -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9
-                    -b:v 3000k -profile:v 0 -preset veryfast
+                    -profile:v 0 -preset veryfast -b:v 3000k
                     -flags +cgop
                     -c:a aac -ar 48000 -b:a 192k -ac 2
                     -f mpegts pipe:1'
                 - name: 720p
                   cmd:
-                    '%FFMPEG% -re -y -sn -dn -threads 0 -ignore_unknown -dual_mono_mode main
-                    -analyzeduration 500000
+                    '%FFMPEG% -y -sn -dn -threads 0 -ignore_unknown -dual_mono_mode main
+                    -f mpegts -analyzeduration 500000
                     -i pipe:0
                     -fflags nobuffer -flags low_delay
                     -max_delay 250000 -max_interleave_delta 1
                     -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9
-                    -b:v 3000k -profile:v 0 -preset veryfast
+                    -profile:v 0 -preset veryfast -b:v 2000k
                     -flags +cgop
-                    -c:a aac -ar 48000 -b:a 192k -ac 2
+                    -c:a aac -ar 48000 -b:a 128k -ac 2
                     -f mpegts pipe:1'
                 # - name: 720p
                 #   cmd:
@@ -177,8 +175,8 @@ stream:
                     -max_muxing_queue_size 1024 -hls_time 3 -hls_list_size 17 -hls_allow_cache 1
                     -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments
                     -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9
-                    -b:v 3000k -profile:v 0 -preset veryfast
-                    -c:a aac -ar 48000 -b:a 198k -ac 2
+                    -profile:v 0 -preset veryfast -b:v 3000k
+                    -c:a aac -ar 48000 -b:a 192k -ac 2
                     -flags +loop-global_header
                     -f hls %OUTPUT%'
                 - name: 720p
@@ -188,10 +186,22 @@ stream:
                     -max_muxing_queue_size 1024 -hls_time 3 -hls_list_size 17 -hls_allow_cache 1
                     -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments
                     -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9
-                    -b:v 3000k -profile:v 0 -preset veryfast
-                    -c:a aac -ar 48000 -b:a 198k -ac 2
+                    -profile:v 0 -preset veryfast -b:v 2000k
+                    -c:a aac -ar 48000 -b:a 128k -ac 2
                     -flags +loop-global_header
                     -f hls %OUTPUT%'
+                - name: 720p (字幕)
+                  cmd:
+                      '%FFMPEG% -re -threads 0 -ignore_unknown -dual_mono_mode main -fix_sub_duration
+                      -i pipe:0
+                      -max_muxing_queue_size 1024 -f hls -hls_time 3 -hls_list_size 17 -hls_allow_cache 1
+                      -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments
+                      -c:v libx264 -vf scale=1280:720
+                      -profile:v baseline -preset veryfast -b:v 2000k
+                      -flags +loop-global_header
+                      -c:a aac -ar 48000 -b:a 128k -ac 2
+                      -c:s webvtt -master_pl_name stream%streamNum%.m3u8
+                      %streamFileDir%/stream%streamNum%-child.m3u8'
                 # - name: 720p
                 #   cmd:
                 #     '%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -map 0 -threads 0 -ignore_unknown
@@ -248,26 +258,38 @@ stream:
             hls:
                 - name: 1080p
                   cmd:
-                    '%FFMPEG% -re -y -sn -dn -threads 0 -ignore_unknown -dual_mono_mode main
+                    '%FFMPEG% -sn -dn -threads 0 -ignore_unknown -dual_mono_mode main
                     -i pipe:0
-                    -max_muxing_queue_size 1024 -hls_time 3 -hls_list_size 0 -hls_allow_cache 1
+                    -max_muxing_queue_size 1024 -f hls -hls_time 3 -hls_list_size 0 -hls_allow_cache 1
                     -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments
                     -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9
-                    -b:v 3000k -profile:v 0 -preset veryfast
-                    -c:a aac -ar 48000 -b:a 198k -ac 2
+                    -profile:v 0 -preset veryfast -b:v 3000k
+                    -c:a aac -ar 48000 -b:a 192k -ac 2
                     -flags +loop-global_header
-                    -f hls %OUTPUT%'
+                    %OUTPUT%'
                 - name: 720p
                   cmd:
-                    '%FFMPEG% -re -y -sn -dn -threads 0 -ignore_unknown -dual_mono_mode main
+                    '%FFMPEG% -sn -dn -threads 0 -ignore_unknown -dual_mono_mode main
                     -i pipe:0
-                    -max_muxing_queue_size 1024 -hls_time 3 -hls_list_size 0 -hls_allow_cache 1
+                    -max_muxing_queue_size 1024 -f hls -hls_time 3 -hls_list_size 0 -hls_allow_cache 1
                     -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments
                     -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9
-                    -b:v 3000k -profile:v 0 -preset veryfast
-                    -c:a aac -ar 48000 -b:a 198k -ac 2
+                    -profile:v 0 -preset veryfast -b:v 2000k
+                    -c:a aac -ar 48000 -b:a 128k -ac 2
                     -flags +loop-global_header
-                    -f hls %OUTPUT%'
+                    %OUTPUT%'
+                - name: 720p (字幕)
+                  cmd:
+                      '%FFMPEG% -threads 0 -ignore_unknown -dual_mono_mode main -fix_sub_duration
+                      -i pipe:0
+                      -max_muxing_queue_size 1024 -f hls -hls_time 3 -hls_list_size 0 -hls_allow_cache 1
+                      -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments
+                      -c:v libx264 -vf scale=1280:720 -aspect 16:9
+                      -profile:v baseline -preset veryfast -b:v 2000k
+                      -flags +loop-global_header
+                      -c:a aac -ar 48000 -b:a 128k -ac 2
+                      -c:s webvtt -master_pl_name stream%streamNum%.m3u8
+                      %streamFileDir%/stream%streamNum%-child.m3u8'
                 # - name: 720p
                 #   cmd:
                 #       '%FFMPEG% -dual_mono_mode main -i pipe:0 -sn -map 0 -threads 0 -ignore_unknown
@@ -306,6 +328,17 @@ stream:
             #           -f webm pipe:1'
 
             mp4:
+                - name: 480p
+                  cmd:
+                    '%FFMPEG% -re -y -dual_mono_mode main
+                    -sn -dn -threads 0
+                    -ss %SS%
+                    -i %INPUT%
+                    -c:v libx264 -vf scale=-2:480
+                    -profile:v baseline -preset veryfast -b:v 1500k
+                    -movflags frag_keyframe+empty_moov+faststart+default_base_moof
+                    -c:a aac -ar 48000 -b:a 128k -ac 2
+                    -f mp4 pipe:1'
                 # - name: 720p
                 #   cmd:
                 #       '%FFMPEG% -dual_mono_mode main -ss %SS% -i %INPUT% -sn -threads 0 -c:a aac -ar 48000 -b:a 192k -ac
@@ -318,31 +351,30 @@ stream:
                 #       2 -c:v libx264 -vf scale=-2:480 -b:v 1500k -profile:v baseline -preset veryfast -tune
                 #       fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4
                 #       pipe:1'
-                - name: 無変換
 
             hls:
                 - name: 1080p
                   cmd:
                     '%FFMPEG% -re -y -sn -dn -threads 0 -ignore_unknown -dual_mono_mode main
                     -ss %SS%
-                    -i pipe:0
+                    -i %INPUT%
                     -max_muxing_queue_size 1024 -hls_time 3 -hls_list_size 0 -hls_allow_cache 1
                     -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments
                     -c:v h264_v4l2m2m -vf scale=1920:1080 -aspect 16:9
-                    -b:v 3000k -profile:v 0 -preset veryfast
-                    -c:a aac -ar 48000 -b:a 198k -ac 2
+                    -profile:v 0 -preset veryfast -b:v 3000k
+                    -c:a aac -ar 48000 -b:a 192k -ac 2
                     -flags +loop-global_header
                     -f hls %OUTPUT%'
                 - name: 720p
                   cmd:
                     '%FFMPEG% -re -y -sn -dn -threads 0 -ignore_unknown -dual_mono_mode main
                     -ss %SS%
-                    -i pipe:0
+                    -i %INPUT%
                     -max_muxing_queue_size 1024 -hls_time 3 -hls_list_size 0 -hls_allow_cache 1
                     -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -hls_flags delete_segments
                     -c:v h264_v4l2m2m -vf scale=1280:720 -aspect 16:9
-                    -b:v 3000k -profile:v 0 -preset veryfast
-                    -c:a aac -ar 48000 -b:a 198k -ac 2
+                    -profile:v 0 -preset veryfast -b:v 2000k
+                    -c:a aac -ar 48000 -b:a 128k -ac 2
                     -flags +loop-global_header
                     -f hls %OUTPUT%'
                 # - name: 720p
