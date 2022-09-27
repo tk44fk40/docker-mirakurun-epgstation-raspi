@@ -39,15 +39,14 @@ Array.prototype.push.apply(args, ['-i', input]);
 // ビデオストリーム設定
 Array.prototype.push.apply(args, ['-map', '0:v']);
 Array.prototype.push.apply(args, ['-c:v', 'h264_v4l2m2m']);
-Array.prototype.push.apply(args, ['-aspect', '16:9', '-r',  '24000/1001']);
 Array.prototype.push.apply(args, ['-profile:v', '0', '-b:v', '3000k']);
 // インターレス解除
 //Array.prototype.push.apply(args, ['-vf', 'yadif']);
 // スケーリング
-Array.prototype.push.apply(args, ['-vf', 'scale=1280:720']);
+Array.prototype.push.apply(args, ['-vf', 'scale=1280:720', '-aspect', '16:9']);
 // オーディオストリーム設定
 Array.prototype.push.apply(args, ['-map', '0:a']);
-Array.prototype.push.apply(args, ['-c:a', 'aac']);
+Array.prototype.push.apply(args, ['-c:a', 'aac', '-b:a', '192k', '-ar', '48000']);
 // 字幕ストリーム設定(無効)
 Array.prototype.push.apply(args, ['-sn']);
 // 出力ファイル

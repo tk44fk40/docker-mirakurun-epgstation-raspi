@@ -53,11 +53,11 @@ if (isDualMono) {
 } else {
     Array.prototype.push.apply(args, ['-map', '0:a']);
 }
-Array.prototype.push.apply(args, ['-c:a', 'aac']);
+Array.prototype.push.apply(args, ['-c:a', 'aac', '-b:a', '192k', '-ar', '48000']);
 // 字幕ストリーム設定
 Array.prototype.push.apply(args, ['-map', '0:s?', '-c:s', 'mov_text']);
 // 品質設定
-Array.prototype.push.apply(args, ['-preset', 'veryfast', '-crf', '26']);
+Array.prototype.push.apply(args, ['-profile:v', 'baseline', '-preset', 'veryfast', '-crf', '23', '-b:v', '3000k']);
 // 出力ファイル
 Array.prototype.push.apply(args, [output]);
 
