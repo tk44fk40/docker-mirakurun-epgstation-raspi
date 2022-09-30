@@ -3,7 +3,7 @@ mirakurunPath: http://mirakurun:40772/
 
 kodiHosts:
     - name: kodi
-      host: http://192.168.3.16:8000
+      host: http://192.168.3.16:8080
       user: kodi
       pass: kodi
 
