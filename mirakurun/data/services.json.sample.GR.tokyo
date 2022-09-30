@@ -1,1 +1,145 @@
-[{"__integrity__":"mciGbhxOc91Vkq/vlwW2+JKSRlES1/JiQ0oaQUrwrR0="},{"id":3273601024,"serviceId":1024,"networkId":32736,"name":"ＮＨＫ総合１・東京","type":1,"logoId":0,"remoteControlKeyId":1,"epgReady":true,"epgUpdatedAt":1663881689210,"channel":{"type":"GR","channel":"27"}},{"id":3273601025,"serviceId":1025,"networkId":32736,"name":"ＮＨＫ総合２・東京","type":1,"logoId":0,"remoteControlKeyId":1,"epgReady":true,"epgUpdatedAt":1663881689210,"channel":{"type":"GR","channel":"27"}},{"id":3273601408,"serviceId":1408,"networkId":32736,"name":"ＮＨＫ携帯Ｇ・東京","type":192,"remoteControlKeyId":1,"epgReady":true,"epgUpdatedAt":1663881689210,"channel":{"type":"GR","channel":"27"}},{"id":3273701032,"serviceId":1032,"networkId":32737,"name":"ＮＨＫＥテレ１東京","type":1,"logoId":8,"remoteControlKeyId":2,"epgReady":true,"epgUpdatedAt":1663881752121,"channel":{"type":"GR","channel":"26"}},{"id":3273701033,"serviceId":1033,"networkId":32737,"name":"ＮＨＫＥテレ２東京","type":1,"logoId":8,"remoteControlKeyId":2,"epgReady":true,"epgUpdatedAt":1663881752121,"channel":{"type":"GR","channel":"26"}},{"id":3273701034,"serviceId":1034,"networkId":32737,"name":"ＮＨＫＥテレ３東京","type":1,"logoId":8,"remoteControlKeyId":2,"epgReady":true,"epgUpdatedAt":1663881752121,"channel":{"type":"GR","channel":"26"}},{"id":3273701416,"serviceId":1416,"networkId":32737,"name":"ＮＨＫ携帯２","type":192,"remoteControlKeyId":2,"epgReady":true,"epgUpdatedAt":1663881752121,"channel":{"type":"GR","channel":"26"}},{"id":3237524632,"serviceId":24632,"networkId":32375,"name":"ｔｖｋ１","type":1,"logoId":1,"remoteControlKeyId":3,"epgReady":true,"epgUpdatedAt":1663881815009,"channel":{"type":"GR","channel":"18"}},{"id":3237524633,"serviceId":24633,"networkId":32375,"name":"ｔｖｋ２","type":1,"logoId":1,"remoteControlKeyId":3,"epgReady":true,"epgUpdatedAt":1663881815009,"channel":{"type":"GR","channel":"18"}},{"id":3237524634,"serviceId":24634,"networkId":32375,"name":"ｔｖｋ３","type":1,"logoId":1,"remoteControlKeyId":3,"epgReady":true,"epgUpdatedAt":1663881815009,"channel":{"type":"GR","channel":"18"}},{"id":3237525016,"serviceId":25016,"networkId":32375,"name":"ｔｖｋワンセグ１","type":192,"remoteControlKeyId":3,"epgReady":true,"epgUpdatedAt":1663881815009,"channel":{"type":"GR","channel":"18"}},{"id":3273801040,"serviceId":1040,"networkId":32738,"name":"日テレ１","type":1,"logoId":17,"remoteControlKeyId":4,"epgReady":true,"epgUpdatedAt":1663881880012,"channel":{"type":"GR","channel":"25"}},{"id":3273801041,"serviceId":1041,"networkId":32738,"name":"日テレ２","type":1,"logoId":17,"remoteControlKeyId":4,"epgReady":true,"epgUpdatedAt":1663881880012,"channel":{"type":"GR","channel":"25"}},{"id":3273801424,"serviceId":1424,"networkId":32738,"name":"日本テレビ","type":192,"remoteControlKeyId":4,"epgReady":true,"epgUpdatedAt":1663881880012,"channel":{"type":"GR","channel":"25"}},{"id":3273901048,"serviceId":1048,"networkId":32739,"name":"ＴＢＳ１","type":1,"logoId":140,"remoteControlKeyId":6,"epgReady":true,"epgUpdatedAt":1663881939969,"channel":{"type":"GR","channel":"22"}},{"id":3273901049,"serviceId":1049,"networkId":32739,"name":"ＴＢＳ２","type":1,"logoId":140,"remoteControlKeyId":6,"epgReady":true,"epgUpdatedAt":1663881939969,"channel":{"type":"GR","channel":"22"}},{"id":3273901432,"serviceId":1432,"networkId":32739,"name":"ＴＢＳ","type":192,"remoteControlKeyId":6,"epgReady":true,"epgUpdatedAt":1663881939969,"channel":{"type":"GR","channel":"22"}},{"id":3273901183,"serviceId":1183,"networkId":32739,"name":"Ｇガイド","type":192,"logoId":141,"remoteControlKeyId":6,"epgReady":true,"epgUpdatedAt":1663881939969,"channel":{"type":"GR","channel":"22"}},{"id":3274001056,"serviceId":1056,"networkId":32740,"name":"フジテレビ","type":1,"logoId":1,"remoteControlKeyId":8,"epgReady":true,"epgUpdatedAt":1663881998302,"channel":{"type":"GR","channel":"21"}},{"id":3274001057,"serviceId":1057,"networkId":32740,"name":"フジテレビ","type":1,"logoId":1,"remoteControlKeyId":8,"epgReady":true,"epgUpdatedAt":1663881998302,"channel":{"type":"GR","channel":"21"}},{"id":3274001058,"serviceId":1058,"networkId":32740,"name":"フジテレビ","type":1,"logoId":1,"remoteControlKeyId":8,"epgReady":true,"epgUpdatedAt":1663881998302,"channel":{"type":"GR","channel":"21"}},{"id":3274001440,"serviceId":1440,"networkId":32740,"name":"フジテレビ","type":192,"remoteControlKeyId":8,"epgReady":true,"epgUpdatedAt":1663881998302,"channel":{"type":"GR","channel":"21"}},{"id":3274101064,"serviceId":1064,"networkId":32741,"name":"テレビ朝日","type":1,"logoId":1,"remoteControlKeyId":5,"epgReady":true,"epgUpdatedAt":1663882061047,"channel":{"type":"GR","channel":"24"}},{"id":3274101065,"serviceId":1065,"networkId":32741,"name":"テレビ朝日","type":1,"logoId":2,"remoteControlKeyId":5,"epgReady":true,"epgUpdatedAt":1663882061047,"channel":{"type":"GR","channel":"24"}},{"id":3274101066,"serviceId":1066,"networkId":32741,"name":"テレビ朝日","type":1,"logoId":3,"remoteControlKeyId":5,"epgReady":true,"epgUpdatedAt":1663882061047,"channel":{"type":"GR","channel":"24"}},{"id":3274101448,"serviceId":1448,"networkId":32741,"name":"テレビ朝日","type":192,"remoteControlKeyId":5,"epgReady":true,"epgUpdatedAt":1663882061047,"channel":{"type":"GR","channel":"24"}},{"id":3274201072,"serviceId":1072,"networkId":32742,"name":"テレビ東京１","type":1,"logoId":1,"remoteControlKeyId":7,"epgReady":true,"epgUpdatedAt":1663882123958,"channel":{"type":"GR","channel":"23"}},{"id":3274201073,"serviceId":1073,"networkId":32742,"name":"テレビ東京２","type":1,"logoId":1,"remoteControlKeyId":7,"epgReady":true,"epgUpdatedAt":1663882123958,"channel":{"type":"GR","channel":"23"}},{"id":3274201074,"serviceId":1074,"networkId":32742,"name":"テレビ東京３","type":1,"logoId":1,"remoteControlKeyId":7,"epgReady":true,"epgUpdatedAt":1663882123958,"channel":{"type":"GR","channel":"23"}},{"id":3274201456,"serviceId":1456,"networkId":32742,"name":"テレビ東京携帯","type":192,"remoteControlKeyId":7,"epgReady":true,"epgUpdatedAt":1663882123958,"channel":{"type":"GR","channel":"23"}},{"id":3239123608,"serviceId":23608,"networkId":32391,"name":"ＴＯＫＹＯ　ＭＸ１","type":1,"logoId":16,"remoteControlKeyId":9,"epgReady":true,"epgUpdatedAt":1663882186892,"channel":{"type":"GR","channel":"16"}},{"id":3239123609,"serviceId":23609,"networkId":32391,"name":"ＴＯＫＹＯ　ＭＸ１","type":1,"logoId":16,"remoteControlKeyId":9,"epgReady":true,"epgUpdatedAt":1663882186892,"channel":{"type":"GR","channel":"16"}},{"id":3239123610,"serviceId":23610,"networkId":32391,"name":"ＴＯＫＹＯ　ＭＸ２","type":1,"logoId":17,"remoteControlKeyId":9,"epgReady":true,"epgUpdatedAt":1663882186892,"channel":{"type":"GR","channel":"16"}},{"id":3239123992,"serviceId":23992,"networkId":32391,"name":"ＭＸワンセグ１","type":192,"remoteControlKeyId":9,"epgReady":true,"epgUpdatedAt":1663882186892,"channel":{"type":"GR","channel":"16"}},{"id":3239123993,"serviceId":23993,"networkId":32391,"name":"ＭＸワンセグ２","type":192,"remoteControlKeyId":9,"epgReady":true,"epgUpdatedAt":1663882186892,"channel":{"type":"GR","channel":"16"}}]
+[
+    {
+        "__integrity__": "Qa9IZUSQO1HIDVhfZe09CJ5/wnmBZuiaS1EDv/i65Qo="
+    },
+    {
+        "id": 3273601024,
+        "serviceId": 1024,
+        "networkId": 32736,
+        "name": "ＮＨＫ総合１・東京",
+        "type": 1,
+        "logoId": 0,
+        "epgReady": false,
+        "epgUpdatedAt": 0,
+        "channel": {
+            "type": "GR",
+            "channel": "27"
+        }
+    },
+    {
+        "id": 3273701032,
+        "serviceId": 1032,
+        "networkId": 32737,
+        "name": "ＮＨＫＥテレ１東京",
+        "type": 1,
+        "logoId": 8,
+        "epgReady": false,
+        "epgUpdatedAt": 0,
+        "channel": {
+            "type": "GR",
+            "channel": "26"
+        }
+    },
+    {
+        "id": 3237524632,
+        "serviceId": 24632,
+        "networkId": 32375,
+        "name": "ｔｖｋ１",
+        "type": 1,
+        "logoId": 1,
+        "epgReady": false,
+        "epgUpdatedAt": 0,
+        "channel": {
+            "type": "GR",
+            "channel": "18"
+        }
+    },
+    {
+        "id": 3273801040,
+        "serviceId": 1040,
+        "networkId": 32738,
+        "name": "日テレ１",
+        "type": 1,
+        "logoId": 17,
+        "epgReady": false,
+        "epgUpdatedAt": 0,
+        "channel": {
+            "type": "GR",
+            "channel": "25"
+        }
+    },
+    {
+        "id": 3273901048,
+        "serviceId": 1048,
+        "networkId": 32739,
+        "name": "ＴＢＳ１",
+        "type": 1,
+        "logoId": 140,
+        "epgReady": false,
+        "epgUpdatedAt": 0,
+        "channel": {
+            "type": "GR",
+            "channel": "22"
+        }
+    },
+    {
+        "id": 3274001056,
+        "serviceId": 1056,
+        "networkId": 32740,
+        "name": "フジテレビ",
+        "type": 1,
+        "logoId": 1,
+        "epgReady": false,
+        "epgUpdatedAt": 0,
+        "channel": {
+            "type": "GR",
+            "channel": "21"
+        }
+    },
+    {
+        "id": 3274101064,
+        "serviceId": 1064,
+        "networkId": 32741,
+        "name": "テレビ朝日",
+        "type": 1,
+        "logoId": 1,
+        "epgReady": false,
+        "epgUpdatedAt": 0,
+        "channel": {
+            "type": "GR",
+            "channel": "24"
+        }
+    },
+    {
+        "id": 3274201072,
+        "serviceId": 1072,
+        "networkId": 32742,
+        "name": "テレビ東京１",
+        "type": 1,
+        "logoId": 1,
+        "epgReady": false,
+        "epgUpdatedAt": 0,
+        "channel": {
+            "type": "GR",
+            "channel": "23"
+        }
+    },
+    {
+        "id": 3239123608,
+        "serviceId": 23608,
+        "networkId": 32391,
+        "name": "ＴＯＫＹＯ　ＭＸ１",
+        "type": 1,
+        "logoId": 16,
+        "epgReady": false,
+        "epgUpdatedAt": 0,
+        "channel": {
+            "type": "GR",
+            "channel": "16"
+        }
+    },
+    {
+        "id": 3239123610,
+        "serviceId": 23610,
+        "networkId": 32391,
+        "name": "ＴＯＫＹＯ　ＭＸ２",
+        "type": 1,
+        "logoId": 17,
+        "epgReady": false,
+        "epgUpdatedAt": 0,
+        "channel": {
+            "type": "GR",
+            "channel": "16"
+        }
+    }
+]

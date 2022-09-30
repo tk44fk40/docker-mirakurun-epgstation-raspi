@@ -1,31 +1,45 @@
 - name: ＮＨＫ総合・東京
   type: GR
   channel: '27'
+  serviceId: 1024
 - name: ＮＨＫＥテレ・東京
   type: GR
   channel: '26'
+  serviceId: 1032
 - name: ｔｖｋ
   type: GR
   channel: '18'
   isDisabled: false
+  serviceId: 24632
 - name: 日テレ
   type: GR
   channel: '25'
+  serviceId: 1040
 - name: ＴＢＳ
   type: GR
   channel: '22'
+  serviceId: 1048
 - name: フジテレビ
   type: GR
   channel: '21'
+  serviceId: 1056
 - name: テレビ朝日
   type: GR
   channel: '24'
+  serviceId: 1064
 - name: テレビ東京
   type: GR
   channel: '23'
+  serviceId: 1072
 - name: ＴＯＫＹＯ　ＭＸ
   type: GR
   channel: '16'
+  serviceId: 23608
+- name: ＴＯＫＹＯ　ＭＸ
+  type: GR
+  channel: '16'
+  isDisabled: false
+  serviceId: 23610
 - name: ＢＳ朝日１
   type: BS
   channel: BS01_0
@@ -76,15 +90,15 @@
   channel: BS09_0
   serviceId: 211
   isDisabled: true
-- name: ＢＳスカパー！
-  type: BS
-  channel: BS11_1
-  serviceId: 241
-  isDisabled: true
 - name: ＢＳ日テレ
   type: BS
   channel: BS13_0
   serviceId: 141
+  isDisabled: true
+- name: ＢＳスカパー！
+  type: BS
+  channel: BS11_1
+  serviceId: 241
   isDisabled: true
 - name: ＢＳ日テレ
   type: BS
