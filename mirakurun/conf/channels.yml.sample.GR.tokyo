@@ -90,15 +90,15 @@
   channel: BS09_0
   serviceId: 211
   isDisabled: true
-- name: ＢＳ日テレ
-  type: BS
-  channel: BS13_0
-  serviceId: 141
-  isDisabled: true
 - name: ＢＳスカパー！
   type: BS
   channel: BS11_1
   serviceId: 241
+  isDisabled: true
+- name: ＢＳ日テレ
+  type: BS
+  channel: BS13_0
+  serviceId: 141
   isDisabled: true
 - name: ＢＳ日テレ
   type: BS
