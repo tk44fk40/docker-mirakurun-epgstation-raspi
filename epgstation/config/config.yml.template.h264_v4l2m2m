@@ -7,6 +7,10 @@ kodiHosts:
       user: kodi
       pass: kodi
 
+apiServers:
+    - http://localhost:8888
+    - http://xxx.xxx.xxx.xxx:8888
+
 # sqlite:
 #   extensions:
 #     - '/hoge/regexp.dylib'
