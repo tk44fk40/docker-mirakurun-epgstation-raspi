@@ -67,21 +67,22 @@ services:
         user: "1000:44"
         restart: always
 
-    netdata:
-        image: netdata/netdata
-        cap_add:
-            - SYS_PTRACE
-        ports:
-            - "19999:19999"
-        volumes:
-            - /proc:/host/proc:ro
-            - /sys:/host/sys:ro
-            - /var/run/docker.sock:/var/run/docker.sock:ro
-        security_opt:
-            - apparmor:unconfined
-        environment:
-            TZ: "Asia/Tokyo"
-        restart: always
+    # netdata は apt でインストールする
+    # netdata:
+    #     image: netdata/netdata
+    #     cap_add:
+    #         - SYS_PTRACE
+    #     ports:
+    #         - "19999:19999"
+    #     volumes:
+    #         - /proc:/host/proc:ro
+    #         - /sys:/host/sys:ro
+    #         - /var/run/docker.sock:/var/run/docker.sock:ro
+    #     security_opt:
+    #         - apparmor:unconfined
+    #     environment:
+    #         TZ: "Asia/Tokyo"
+    #     restart: always
 
 volumes:
     mysql-db:
