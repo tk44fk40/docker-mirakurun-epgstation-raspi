@@ -24,6 +24,7 @@ services:
                 max-size: 10m
 
     mysql:
+        #image: bitnami/mariadb:10.5-debian-10 # for buster
         image: mariadb:10.5
         volumes:
             - mysql-db:/var/lib/mysql
